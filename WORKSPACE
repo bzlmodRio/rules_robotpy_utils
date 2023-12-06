@@ -9,7 +9,7 @@ http_archive(
     url = "https://github.com/bazelbuild/rules_python/releases/download/0.27.1/rules_python-0.27.1.tar.gz",
 )
 
-load("@rules_python//python:repositories.bzl", "py_repositories")
+load("@rules_python//python:repositories.bzl", "py_repositories", "python_register_toolchains")
 
 py_repositories()
 
@@ -17,15 +17,14 @@ load("@rules_python//python:pip.bzl", "pip_parse")
 
 pip_parse(
     name = "rules_robotpy_utils_pip_deps",
+    requirements_darwin = "//:requirements_darwin.txt",
     requirements_lock = "//:requirements_lock.txt",
     requirements_windows = "//:requirements_windows.txt",
-    requirements_darwin = "//:requirements_darwin.txt",
 )
 
 load("@rules_robotpy_utils_pip_deps//:requirements.bzl", "install_deps")
 
 install_deps()
-
 
 http_archive(
     name = "aspect_bazel_lib",
@@ -55,8 +54,6 @@ http_archive(
 )
 
 load("@pybind11_bazel//:python_configure.bzl", "python_configure")
-load("@rules_python//python:repositories.bzl", "python_register_toolchains")
-
 
 python_register_toolchains(
     name = "python3_10",

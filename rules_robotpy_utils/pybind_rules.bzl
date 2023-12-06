@@ -1,4 +1,5 @@
 load("@pybind11_bazel//:build_defs.bzl", "pybind_extension", "pybind_library")
+load("@rules_cc//cc:defs.bzl", "cc_library")
 load("@rules_python//python:defs.bzl", "py_library", "py_test")
 
 def create_pybind_library(
@@ -20,7 +21,7 @@ def create_pybind_library(
     print(rpy_include_dir)
     print(rpy_includes)
     if rpy_includes:
-        native.cc_library(
+        cc_library(
             name = "{}_rpy_includes".format(name),
             hdrs = rpy_includes,
             strip_include_prefix = rpy_include_dir,

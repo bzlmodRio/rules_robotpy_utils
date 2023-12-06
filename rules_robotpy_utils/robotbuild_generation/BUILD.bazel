@@ -1,5 +1,5 @@
-load("@rules_robotpy_utils_pip_deps//:requirements.bzl", "requirement")
 load("@rules_python//python:defs.bzl", "py_library")
+load("@rules_robotpy_utils_pip_deps//:requirements.bzl", "requirement")
 
 exports_files([
     "pybind_on_build_gen_shim.py",

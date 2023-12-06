@@ -1,4 +1,3 @@
-
 load("@rules_robotpy_utils//rules_robotpy_utils:generate_robopy_files.bzl", "generate_robopy_files")
 load("@rules_robotpy_utils//rules_robotpy_utils:pybind_rules.bzl", "create_pybind_library")
 

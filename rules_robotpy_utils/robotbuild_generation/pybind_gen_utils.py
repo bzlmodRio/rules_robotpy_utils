@@ -1,4 +1,3 @@
-
 from robotpy_build.pkgcfg_provider import PkgCfgProvider, PkgCfg
 from robotpy_build.pkgcfg_provider import PkgCfg
 from robotpy_build.config.pyproject_toml import RobotpyBuildConfig, Download
@@ -7,7 +6,9 @@ from robotpy_build.autowrap.writer import WrapperWriter
 from robotpy_build.platforms import get_platform, get_platform_override_keys
 from robotpy_build.overrides import apply_overrides
 from pkg_resources import EntryPoint
-from rules_robotpy_utils.robotbuild_generation.load_project_config import load_project_config
+from rules_robotpy_utils.robotbuild_generation.load_project_config import (
+    load_project_config,
+)
 import os
 import tomli
 import importlib
@@ -16,8 +17,7 @@ import importlib
 class Setup:
     def __init__(self, config_path: str, output_directory: str):
         self.root = output_directory
-        # self.output_directory = "/home/pjreiniger/git/allwpilib"
-        self.output_directory = "/home/pjreiniger/git/bzlmodRio/monorepo/rules/rules_robotpy_utils"
+        self.output_directory = "/home/pjreiniger/git/allwpilib"
         self.wrappers = []
         self.static_libs = []
 
@@ -32,7 +32,7 @@ class Setup:
             raise ValueError("current directory is not a robotpy-build project") from e
 
         self.project_dict = self.pyproject.get("tool", {}).get("robotpy-build", {})
-        
+
         # Overrides are applied before pydantic does processing, so that
         # we can easily override anything without needing to make the
         # pydantic schemas messy with needless details
@@ -70,7 +70,7 @@ class Setup:
         self.wwriter = WrapperWriter()
 
         self.prepare(output_directory)
-        
+
         unique_deps = set()
         for wrapper in self.wrappers:
             for dep in wrapper.cfg.depends:
@@ -93,23 +93,23 @@ class Setup:
             dep = "hal"
 
         try:
-            mod = importlib.import_module(dep + '.pkgcfg')
+            mod = importlib.import_module(dep + ".pkgcfg")
             self.pkgcfg.add_pkg(PkgCfg(mod))
 
-            
             module_deps = getattr(mod, "depends", [])
             for d in module_deps:
                 self.__load_dep(d, unique_deps)
         except ModuleNotFoundError as e:
-            print(f"  Could not load {dep}, might be ok if it is an internal package {e}, {type(e)}")
+            print(
+                f"  Could not load {dep}, might be ok if it is an internal package {e}, {type(e)}"
+            )
 
     def prepare(self, output_directory):
         self.pkgcfg = PkgCfgProvider()
-        
 
         self.pypi_package = self.project.metadata.name
         self.setup_kwargs = {}
-        self.incdir = ['x/']
+        self.incdir = ["x/"]
 
         self._collect_wrappers(output_directory=output_directory)
 
@@ -119,7 +119,6 @@ class Setup:
         ext_modules = []
 
         for package_name, cfg in self.project.wrappers.items():
-
             package_dir = os.path.join(output_directory, package_name)
             if not os.path.exists(package_dir):
                 # print("Making package ", package_dir)
@@ -128,11 +127,12 @@ class Setup:
             if cfg.ignore:
                 # print("Ignoring ", cfg)
                 continue
-            
+
             if cfg.generation_data:
                 # print("Has gen data", cfg.generation_data)
-                cfg.generation_data=f"" + cfg.generation_data
-
+                cfg.generation_data = (
+                    f"{package_name}/src/main/python/" + cfg.generation_data
+                )
 
             # print(package_name, cfg)
             # self._fix_downloads(cfg, False)

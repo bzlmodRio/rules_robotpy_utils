@@ -1,11 +1,14 @@
 import argparse
 
-from rules_robotpy_utils.robotbuild_generation.load_project_config import load_project_config
+from rules_robotpy_utils.robotbuild_generation.load_project_config import (
+    load_project_config,
+)
 from rules_robotpy_utils.robotbuild_generation.pybind_gen_utils import Setup
 from robotpy_build.wrapper import Wrapper
 import os
 import re
 import shutil
+
 
 def main(argv):
     parser = argparse.ArgumentParser()
@@ -34,7 +37,9 @@ def main(argv):
         os.path.join(args.output_directory, "gensrc"),
     )
 
-    rpy_include_output_dir = os.path.join(args.output_directory, f"rpy-include/{project_name}")
+    rpy_include_output_dir = os.path.join(
+        args.output_directory, f"rpy-include/{project_name}"
+    )
 
     shutil.copytree(
         os.path.join(intermediate_directory, f"{project_name}"),
@@ -51,23 +56,43 @@ def main(argv):
                 # print(re_pattern, "->", xxxx)
                 if xxxx:
                     subfolder = xxxx[1]
-                    actual_directory = os.path.join(args.output_directory, "gensrc", project_name + "_" + subfolder[1:].replace("_", ""))
+                    actual_directory = os.path.join(
+                        args.output_directory,
+                        "gensrc",
+                        project_name + "_" + subfolder[1:].replace("_", ""),
+                    )
                     if project_name == "wpilib" and subfolder == "/shuffleboard":
-                        actual_directory = os.path.join(args.output_directory, "gensrc", project_name + "c_" + subfolder[1:].replace("_", ""))
+                        actual_directory = os.path.join(
+                            args.output_directory,
+                            "gensrc",
+                            project_name + "c_" + subfolder[1:].replace("_", ""),
+                        )
                     if project_name == "wpilib" and subfolder == "/simulation":
-                        actual_directory = os.path.join(args.output_directory, "gensrc", project_name + "c_" + subfolder[1:].replace("_", ""))
+                        actual_directory = os.path.join(
+                            args.output_directory,
+                            "gensrc",
+                            project_name + "c_" + subfolder[1:].replace("_", ""),
+                        )
 
                     if not os.path.exists(actual_directory):
                         os.makedirs(actual_directory)
                     print("Got a match...", subfolder)
                     print("  Putting in ", actual_directory)
-                    shutil.move(os.path.join(root, f),  actual_directory)
+                    shutil.move(os.path.join(root, f), actual_directory)
                 elif project_name == "wpilib":
-                    shutil.move(os.path.join(root, f), os.path.join(args.output_directory, "gensrc", project_name + "_core"))
+                    shutil.move(
+                        os.path.join(root, f),
+                        os.path.join(
+                            args.output_directory, "gensrc", project_name + "_core"
+                        ),
+                    )
                 else:
                     print("  No regex, doing normal copy")
-                    
-                    shutil.move(os.path.join(root, f), os.path.join(args.output_directory, "gensrc", project_name))
+
+                    shutil.move(
+                        os.path.join(root, f),
+                        os.path.join(args.output_directory, "gensrc", project_name),
+                    )
 
     if not args.keep_json_files:
         for root, _, files in os.walk(os.path.join(args.output_directory, "gensrc")):
@@ -75,9 +100,6 @@ def main(argv):
                 if f.endswith(".json"):
                     os.remove(os.path.join(root, f))
 
-
-
-        
 
 if __name__ == "__main__":
     main(sys.argv[1:])
