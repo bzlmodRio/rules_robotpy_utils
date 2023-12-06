@@ -37,7 +37,7 @@ def create_pybind_library(
         ] + deps + rpy_hdr_deps,
         copts = select({
             "@bazel_tools//src/conditions:darwin": ["-Wno-sign-compare", "-Wno-unused-value", "-Wno-pessimizing-move", "-Wno-delete-abstract-non-virtual-dtor", "-Wno-delete-non-abstract-non-virtual-dtor", "-Wno-overloaded-virtual"],
-            "@bazel_tools//src/conditions:windows": ["/wd4407", "/wd4101],
+            "@bazel_tools//src/conditions:windows": ["/wd4407", "/wd4101"],
             "@rules_bzlmodrio_toolchains//constraints/combined:is_linux": ["-Wno-attributes", "-Wno-redundant-move", "-Wno-sign-compare", "-Wno-deprecated", "-Wno-deprecated-declarations", "-Wno-unused-value"],
         }),
         target_compatible_with = select({
