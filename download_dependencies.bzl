@@ -10,7 +10,7 @@ def download_rules_robotpy_utils_dependencies():
         strip_prefix = "rules_python-0.27.1",
         url = "https://github.com/bazelbuild/rules_python/releases/download/0.27.1/rules_python-0.27.1.tar.gz",
     )
-    
+
     maybe(
         http_archive,
         name = "aspect_bazel_lib",
@@ -26,7 +26,7 @@ def download_rules_robotpy_utils_dependencies():
         strip_prefix = "pybind11_bazel-b162c7c88a253e3f6b673df0c621aca27596ce6b",
         urls = ["https://github.com/pybind/pybind11_bazel/archive/b162c7c88a253e3f6b673df0c621aca27596ce6b.zip"],
     )
-    
+
     maybe(
         http_archive,
         name = "pybind11",

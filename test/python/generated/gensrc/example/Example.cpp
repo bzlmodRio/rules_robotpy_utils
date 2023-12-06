@@ -5,7 +5,7 @@
 
 
 
-#include "test/cpp/example.hh"
+#include "test/cpp/example.hpp"
 
 
 
