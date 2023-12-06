@@ -33,6 +33,11 @@ py_library(
         ":load_project_config",
         ":pybind_gen_utils",
     ],
+    imports = [
+        #"..", 
+        #".", 
+        #"../.."
+    ]
 )
 
 py_library(

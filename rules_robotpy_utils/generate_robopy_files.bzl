@@ -35,9 +35,9 @@ def __run_on_dl(
     py_binary(
         name = name + ".pybind_on_build_dl_exe",
         main = "pybind_on_build_dl_shim.py",
-        srcs = ["@rules_robotpy_utils//rules_robotpy_utils/robotbuild_generation:pybind_on_build_dl_shim.py"],
+        srcs = ["@rules_robotpy_utils//robotbuild_generation:pybind_on_build_dl_shim.py"],
         deps = python_deps + [
-            "@rules_robotpy_utils//rules_robotpy_utils/robotbuild_generation:pybind_on_build_dl",
+            "@rules_robotpy_utils//robotbuild_generation:pybind_on_build_dl",
         ],
         data = native.glob(["gen/**"]),
     )
@@ -121,9 +121,9 @@ def __run_on_build_gen(
     py_binary(
         name = name + ".generate_pybind_exe",
         main = "pybind_on_build_gen_shim.py",
-        srcs = ["@rules_robotpy_utils//rules_robotpy_utils/robotbuild_generation:pybind_on_build_gen_shim.py"],
+        srcs = ["@rules_robotpy_utils//robotbuild_generation:pybind_on_build_gen_shim.py"],
         deps = python_deps + [
-            "@rules_robotpy_utils//rules_robotpy_utils/robotbuild_generation:pybind_on_build_gen",
+            "@rules_robotpy_utils//robotbuild_generation:pybind_on_build_gen",
         ],
         data = headers,
     )

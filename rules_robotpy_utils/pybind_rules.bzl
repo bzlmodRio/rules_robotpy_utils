@@ -66,25 +66,3 @@ def create_pybind_library(
             "no-roborio",
         ],
     )
-
-def pybind_python_library(name, tags = [], **kwargs):
-    py_library(
-        name = name,
-        tags = tags + [
-            "no-bullseye",
-            "no-raspi",
-            "no-roborio",
-        ],
-        **kwargs
-    )
-
-def pybind_python_test(name, tags = [], **kwargs):
-    py_test(
-        name = name,
-        tags = tags + [
-            "no-bullseye",
-            "no-raspi",
-            "no-roborio",
-        ],
-        **kwargs
-    )
