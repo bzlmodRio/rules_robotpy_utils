@@ -37,8 +37,15 @@ def create_pybind_library(
         ] + deps + rpy_hdr_deps,
         copts = select({
             "@bazel_tools//src/conditions:darwin": ["-Wno-sign-compare", "-Wno-unused-value", "-Wno-pessimizing-move", "-Wno-delete-abstract-non-virtual-dtor", "-Wno-delete-non-abstract-non-virtual-dtor", "-Wno-overloaded-virtual"],
-            "@bazel_tools//src/conditions:windows": ["/wd4407"],
+            "@bazel_tools//src/conditions:windows": ["/wd4407", "/wd4101],
             "@rules_bzlmodrio_toolchains//constraints/combined:is_linux": ["-Wno-attributes", "-Wno-redundant-move", "-Wno-sign-compare", "-Wno-deprecated", "-Wno-deprecated-declarations", "-Wno-unused-value"],
+        }),
+        target_compatible_with = select({
+            "@rules_bzlmodrio_toolchains//constraints/is_bullseye32:bullseye32": ["@platforms//:incompatible"],
+            "@rules_bzlmodrio_toolchains//constraints/is_bullseye64:bullseye64": ["@platforms//:incompatible"],
+            "@rules_bzlmodrio_toolchains//constraints/is_raspi32:raspi32": ["@platforms//:incompatible"],
+            "@rules_bzlmodrio_toolchains//constraints/is_roborio:roborio": ["@platforms//:incompatible"],
+            "//conditions:default": [],
         }),
         local_defines = ["RPYBUILD_MODULE_NAME=_{}".format(name), "PYBIND11_DETAILED_ERROR_MESSAGES=1"],
         defines = ["PYBIND11_USE_SMART_HOLDER_AS_DEFAULT=1"],
@@ -59,6 +66,13 @@ def create_pybind_library(
         defines = ["RPYBUILD_MODULE_NAME=_{}".format(name)],
         visibility = ["//visibility:private"],
         includes = ["generated/gensrc/" + generation_subdir],
+        target_compatible_with = select({
+            "@rules_bzlmodrio_toolchains//constraints/is_bullseye32:bullseye32": ["@platforms//:incompatible"],
+            "@rules_bzlmodrio_toolchains//constraints/is_bullseye64:bullseye64": ["@platforms//:incompatible"],
+            "@rules_bzlmodrio_toolchains//constraints/is_raspi32:raspi32": ["@platforms//:incompatible"],
+            "@rules_bzlmodrio_toolchains//constraints/is_roborio:roborio": ["@platforms//:incompatible"],
+            "//conditions:default": [],
+        }),
         tags = [
             "no-bullseye",
             "no-raspi",
