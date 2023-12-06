@@ -1,7 +1,6 @@
 workspace(name = "rules_robotpy_utils")
 
 load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
-
 load("@rules_robotpy_utils//:download_dependencies.bzl", "download_rules_robotpy_utils_dependencies")
 
 download_rules_robotpy_utils_dependencies()
@@ -9,8 +8,6 @@ download_rules_robotpy_utils_dependencies()
 load("@rules_python//python:repositories.bzl", "py_repositories", "python_register_toolchains")
 
 py_repositories()
-
-
 
 load("@rules_robotpy_utils//:setup_dependencies.bzl", "setup_rules_robotpy_utils_dependencies")
 
@@ -20,12 +17,9 @@ load("@rules_robotpy_utils_pip_deps//:requirements.bzl", "install_deps")
 
 install_deps()
 
-
 load("@aspect_bazel_lib//lib:repositories.bzl", "aspect_bazel_lib_dependencies")
 
 aspect_bazel_lib_dependencies()
-
-
 
 # We still require the pybind library.
 

@@ -12,6 +12,6 @@ create_pybind_library(
 generate_robopy_files(
     name = "example",
     config_file = ":pyproject.toml",
+    disable = True,
     headers = [],
-    disable = True
 )

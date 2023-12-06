@@ -22,7 +22,6 @@ python_configure = use_extension("@pybind11_bazel//:python_configure.bzl", "exte
 python_configure.toolchain(python_version = "3")
 use_repo(python_configure, "local_config_python", "pybind11")
 
-
 python = use_extension("@rules_python//python:extensions.bzl", "python")
 python.toolchain(
     name = "python3_10",

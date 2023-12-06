@@ -1,6 +1,4 @@
-
 load("@rules_python//python:pip.bzl", "pip_parse")
-load("@aspect_bazel_lib//lib:repositories.bzl", "aspect_bazel_lib_dependencies")
 
 def setup_rules_robotpy_utils_dependencies():
     pip_parse(

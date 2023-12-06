@@ -1,6 +1,5 @@
 load("@pybind11_bazel//:build_defs.bzl", "pybind_extension", "pybind_library")
 load("@rules_cc//cc:defs.bzl", "cc_library")
-load("@rules_python//python:defs.bzl", "py_library", "py_test")
 
 def create_pybind_library(
         name,
@@ -37,7 +36,7 @@ def create_pybind_library(
             "@rules_robotpy_utils//rules_robotpy_utils/include:robotpy_includes",
         ] + deps + rpy_hdr_deps,
         copts = select({
-            "@bazel_tools//src/conditions:darwin": ["-Wno-sign-compare", "-Wno-unused-value", "-Wno-pessimizing-move", "-Wno-delete-abstract-non-virtual-dtor", "-Wno-delete-non-abstract-non-virtual-dtor"],
+            "@bazel_tools//src/conditions:darwin": ["-Wno-sign-compare", "-Wno-unused-value", "-Wno-pessimizing-move", "-Wno-delete-abstract-non-virtual-dtor", "-Wno-delete-non-abstract-non-virtual-dtor", "-Wno-overloaded-virtual"],
             "@bazel_tools//src/conditions:windows": ["/wd4407"],
             "@rules_bzlmodrio_toolchains//constraints/combined:is_linux": ["-Wno-attributes", "-Wno-redundant-move", "-Wno-sign-compare", "-Wno-deprecated", "-Wno-deprecated-declarations", "-Wno-unused-value"],
         }),
