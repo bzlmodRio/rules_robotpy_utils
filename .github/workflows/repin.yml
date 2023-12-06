@@ -1,0 +1,26 @@
+name: Repin Python Deps
+
+on: [pull_request, push]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.head_ref || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  repin-python:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: macos-latest
+          - os: ubuntu-latest
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v3
+      - uses: bazelbuild/setup-bazelisk@v1
+      - run:  bazel run //:requirements.update
+      - run:  git diff HEAD
+      - uses: actions/upload-artifact@v2
+        with:
+          name: Re-pinned python ${{ matrix.os }}
+          path: requirements*.txt

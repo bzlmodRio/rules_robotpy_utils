@@ -1,0 +1,18 @@
+load("@aspect_bazel_lib//lib:write_source_files.bzl", "write_source_files")
+load("@rules_proto//proto:defs.bzl", "proto_lang_toolchain")
+load("@rules_python//python:pip.bzl", "compile_pip_requirements")
+
+# bazel build //:requirements.lock
+compile_pip_requirements(
+    name = "requirements",
+    extra_args = ["--allow-unsafe"],
+    requirements_darwin = "requirements_darwin.txt",
+    requirements_in = "requirements.txt",
+    requirements_txt = "requirements_lock.txt",
+    requirements_windows = "requirements_windows.txt",
+    tags = [
+        "no-bullseye",
+        "no-raspi",
+        "no-roborio",
+    ],
+)

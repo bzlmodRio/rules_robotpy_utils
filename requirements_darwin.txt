@@ -8,14 +8,16 @@ cxxheaderparser[pcpp]==1.2.2 \
     --hash=sha256:89fcc7ed0de5e641296357dde6641e33a79d4c602331a90efa99f544baa6b9b5 \
     --hash=sha256:cc1395783919c85f14013e3f0c87ef04b0e0a697454e98db12f92b3ba9eb4f61
     # via robotpy-build
-distro==1.8.0 \
-    --hash=sha256:02e111d1dc6a50abb8eed6bf31c3e48ed8b0830d1ea2a1b78c61765c2513fdd8 \
-    --hash=sha256:99522ca3e365cac527b44bde033f64c6945d90eb9f769703caaec52b09bbd3ff
+delocate==0.10.6 \
+    --hash=sha256:28f302505e3811754a398274bbf3bc5b4f7d3384cf96aa57f6be119cadddeabd \
+    --hash=sha256:697d4fcd77014f1462ffab4807364193ee2e9cfad5553bb75922b8a173d94e61
     # via robotpy-build
 jinja2==3.0.0a1 \
     --hash=sha256:c10142f819c2d22bdcd17548c46fa9b77cf4fda45097854c689666bf425e7484 \
     --hash=sha256:c922560ac46888d47384de1dbdc3daaa2ea993af4b26a436dec31fa2c19ec668
-    # via robotpy-build
+    # via
+    #   -r ./requirements.txt
+    #   robotpy-build
 markupsafe==2.1.2 \
     --hash=sha256:0576fe974b40a400449768941d5d0858cc624e3249dfd1e0c33674e5c7ca7aed \
     --hash=sha256:085fd3201e7b12809f9e6e9bc1e5c96a368c8523fad5afb02afe3c051ae4afcc \
@@ -71,7 +73,9 @@ markupsafe==2.1.2 \
 packaging==23.2 \
     --hash=sha256:048fb0e9405036518eaaf48a55953c750c11e1a1b68e0dd1a9d62ed0c092cfc5 \
     --hash=sha256:8c491190033a9af7e1d931d0b5dacc2ef47509b34dd0de67ed209b5203fc88c7
-    # via setuptools-scm
+    # via
+    #   delocate
+    #   setuptools-scm
 patch==1.16 \
     --hash=sha256:c62073f356cff054c8ac24496f1a3d7cfa137835c31e9af39a9f5292fd75bd9f
     # via robotpy-build
@@ -176,7 +180,13 @@ pyyaml==6.0.1 \
 robotpy-build==2024.0.0b5 \
     --hash=sha256:1a0f7355ffd41839bd7fedb8c04b714b0d839562b0339c911e406d72143cb979 \
     --hash=sha256:615274386912c583dface7a5b543a731812982e277414b0bb725c8af6bd4b89f
-    # via -r requirements.txt
+    # via -r ./requirements.txt
+setuptools==69.0.2 \
+    --hash=sha256:1e8fdff6797d3865f37397be788a4e3cba233608e9b509382a2777d25ebde7f2 \
+    --hash=sha256:735896e78a4742605974de002ac60562d286fa8051a7e2299445e8e8fbb01aa6
+    # via
+    #   robotpy-build
+    #   setuptools-scm
 setuptools-scm==7.1.0 \
     --hash=sha256:6c508345a771aad7d56ebff0e70628bf2b0ec7573762be9960214730de278f27 \
     --hash=sha256:73988b6d848709e2af142aa48c986ea29592bbcfca5375678064708205253d8e
@@ -189,6 +199,7 @@ tomli==2.0.1 \
     --hash=sha256:939de3e7a6161af0c887ef91b7d41a53e7c5a1ca976325f429cb46ea9bc30ecc \
     --hash=sha256:de526c12914f0c550d15924c62d72abc48d6fe7364aa87328337a31007fe8a4f
     # via
+    #   -r ./requirements.txt
     #   robotpy-build
     #   setuptools-scm
 tomli-w==1.0.0 \
@@ -203,14 +214,7 @@ typing-extensions==4.8.0 \
     --hash=sha256:8f92fc8806f9a6b641eaa5318da32b44d401efaac0f6678c9bc448ba3605faa0 \
     --hash=sha256:df8e4339e9cb77357558cbdbceca33c303714cf861d1eef15e1070055ae8b7ef
     # via
+    #   delocate
     #   pydantic
-    #   robotpy-build
-    #   setuptools-scm
-
-# The following packages are considered to be unsafe in a requirements file:
-setuptools==69.0.2 \
-    --hash=sha256:1e8fdff6797d3865f37397be788a4e3cba233608e9b509382a2777d25ebde7f2 \
-    --hash=sha256:735896e78a4742605974de002ac60562d286fa8051a7e2299445e8e8fbb01aa6
-    # via
     #   robotpy-build
     #   setuptools-scm
