@@ -12,7 +12,9 @@ bazel_dep(name = "rules_bzlmodrio_toolchains", version = "2024-1")
 pip = use_extension("@rules_python//python:extensions.bzl", "pip")
 pip.parse(
     name = "rules_robotpy_utils_pip_deps",
+    requirements_darwin = "//:requirements_darwin.txt",
     requirements_lock = "//:requirements_lock.txt",
+    requirements_windows = "//:requirements_windows.txt",
 )
 use_repo(pip, "rules_robotpy_utils_pip_deps")
 
