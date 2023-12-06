@@ -1,0 +1,45 @@
+load("@rules_robotpy_utils_pip_deps//:requirements.bzl", "requirement")
+load("@rules_python//python:defs.bzl", "py_library")
+
+exports_files([
+    "pybind_on_build_gen_shim.py",
+    "pybind_on_build_dl_shim.py",
+])
+
+py_library(
+    name = "load_project_config",
+    srcs = ["load_project_config.py"],
+    visibility = ["//visibility:public"],
+    deps = [
+        requirement("robotpy-build"),
+    ],
+)
+
+py_library(
+    name = "pybind_gen_utils",
+    srcs = ["pybind_gen_utils.py"],
+    visibility = ["//visibility:public"],
+    deps = [
+        requirement("robotpy-build"),
+        ":load_project_config",
+    ],
+)
+
+py_library(
+    name = "pybind_on_build_gen",
+    srcs = ["pybind_on_build_gen.py"],
+    visibility = ["//visibility:public"],
+    deps = [
+        ":load_project_config",
+        ":pybind_gen_utils",
+    ],
+)
+
+py_library(
+    name = "pybind_on_build_dl",
+    srcs = ["pybind_on_build_dl.py"],
+    visibility = ["//visibility:public"],
+    deps = [
+        ":pybind_gen_utils",
+    ],
+)

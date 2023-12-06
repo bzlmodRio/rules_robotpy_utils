@@ -1,0 +1,37 @@
+[tool.robotpy-build.metadata]
+name = "project_name"
+description = "Description"
+author = "bzlmodrio"
+author_email = ""
+url = ""
+license = "BSD-3-Clause"
+install_requires = []
+
+[build-system]
+requires = [
+    "robotpy-build<2025.0.0,~=2024.0.0b3",
+]
+
+[tool.robotpy-build]
+base_package = "example"
+
+[tool.robotpy-build.wrappers."example"]
+name = "example"
+sources = [
+    "example/main.cpp",
+]
+
+generation_data = "gen"
+
+[tool.robotpy-build.wrappers."example".maven_lib_download]
+artifact_id = "example-cpp"
+group_id = "edu.wpi.first.example"
+repo_url = "https://frcmaven.wpi.edu/artifactory/release"
+# repo_url = "https://frcmaven.wpi.edu/artifactory/development"
+version = "2024.1.1-beta-3"
+
+libs = ["example"]
+
+[tool.robotpy-build.wrappers."example".autogen_headers]
+# wpi
+Example = "example.hh"

@@ -1,0 +1,17 @@
+
+load("@rules_robotpy_utils//rules_robotpy_utils:generate_robopy_files.bzl", "generate_robopy_files")
+load("@rules_robotpy_utils//rules_robotpy_utils:pybind_rules.bzl", "create_pybind_library")
+
+create_pybind_library(
+    "example",
+    entry_point = ["example/main.cpp"],
+    deps = [
+        "//test/cpp:example",
+    ],
+)
+
+generate_robopy_files(
+    name = "example",
+    config_file = ":pyproject.toml",
+    headers = [],
+)

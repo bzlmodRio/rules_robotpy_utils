@@ -1,0 +1,8 @@
+
+
+cc_library(
+    name = "example",
+    srcs = ["example.cc"],
+    hdrs = ["example.hh"],
+    visibility = ["//visibility:public"],
+)

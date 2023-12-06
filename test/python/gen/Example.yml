@@ -1,0 +1,9 @@
+---
+classes:
+  Example:
+    methods:
+      Example:
+      print_something:
+        overloads:
+          "":
+          const std::string&:
