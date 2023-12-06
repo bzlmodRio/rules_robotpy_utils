@@ -11,9 +11,7 @@ cxxheaderparser[pcpp]==1.2.2 \
 jinja2==3.0.0a1 \
     --hash=sha256:c10142f819c2d22bdcd17548c46fa9b77cf4fda45097854c689666bf425e7484 \
     --hash=sha256:c922560ac46888d47384de1dbdc3daaa2ea993af4b26a436dec31fa2c19ec668
-    # via
-    #   -r ./requirements.txt
-    #   robotpy-build
+    # via robotpy-build
 markupsafe==2.1.2 \
     --hash=sha256:0576fe974b40a400449768941d5d0858cc624e3249dfd1e0c33674e5c7ca7aed \
     --hash=sha256:085fd3201e7b12809f9e6e9bc1e5c96a368c8523fad5afb02afe3c051ae4afcc \
@@ -193,7 +191,6 @@ tomli==2.0.1 \
     --hash=sha256:939de3e7a6161af0c887ef91b7d41a53e7c5a1ca976325f429cb46ea9bc30ecc \
     --hash=sha256:de526c12914f0c550d15924c62d72abc48d6fe7364aa87328337a31007fe8a4f
     # via
-    #   -r ./requirements.txt
     #   robotpy-build
     #   setuptools-scm
 tomli-w==1.0.0 \
