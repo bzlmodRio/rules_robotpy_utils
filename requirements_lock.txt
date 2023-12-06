@@ -176,7 +176,13 @@ pyyaml==6.0.1 \
 robotpy-build==2024.0.0b5 \
     --hash=sha256:1a0f7355ffd41839bd7fedb8c04b714b0d839562b0339c911e406d72143cb979 \
     --hash=sha256:615274386912c583dface7a5b543a731812982e277414b0bb725c8af6bd4b89f
-    # via -r requirements.txt
+    # via -r ./requirements.txt
+setuptools==69.0.2 \
+    --hash=sha256:1e8fdff6797d3865f37397be788a4e3cba233608e9b509382a2777d25ebde7f2 \
+    --hash=sha256:735896e78a4742605974de002ac60562d286fa8051a7e2299445e8e8fbb01aa6
+    # via
+    #   robotpy-build
+    #   setuptools-scm
 setuptools-scm==7.1.0 \
     --hash=sha256:6c508345a771aad7d56ebff0e70628bf2b0ec7573762be9960214730de278f27 \
     --hash=sha256:73988b6d848709e2af142aa48c986ea29592bbcfca5375678064708205253d8e
@@ -204,13 +210,5 @@ typing-extensions==4.8.0 \
     --hash=sha256:df8e4339e9cb77357558cbdbceca33c303714cf861d1eef15e1070055ae8b7ef
     # via
     #   pydantic
-    #   robotpy-build
-    #   setuptools-scm
-
-# The following packages are considered to be unsafe in a requirements file:
-setuptools==69.0.2 \
-    --hash=sha256:1e8fdff6797d3865f37397be788a4e3cba233608e9b509382a2777d25ebde7f2 \
-    --hash=sha256:735896e78a4742605974de002ac60562d286fa8051a7e2299445e8e8fbb01aa6
-    # via
     #   robotpy-build
     #   setuptools-scm
