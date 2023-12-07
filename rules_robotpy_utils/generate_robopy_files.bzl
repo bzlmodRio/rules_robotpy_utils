@@ -53,8 +53,10 @@ def __run_on_dl(
             init_file = "wpimath/_impl/_init_wpimath_cpp.py"
         if name == "wpilib" and project == "_impl":
             init_file = "wpilib/_impl/_init_wpilibc.py"
-        if name == "hal":
+        if name == "hal" and project == "wpiHal":
             init_file = "{name}/_init_{project}.py".format(name = name, project = project)
+        if name == "hal" and project == "simulation":
+            init_file = "hal/simulation/_init_simulation.py".format(name = name, project = project)
         generated_files.append("on_build_dl/" + init_file)
         filter_srcs(
             name = "__filtered_gen_" + project + "_init",
@@ -66,7 +68,7 @@ def __run_on_dl(
         pkg_file = "{project}/pkgcfg.py".format(project = project)
         if name != project:
             pkg_file = "{name}/{project}/pkgcfg.py".format(name = name, project = project)
-        if name == "hal":
+        if name == "hal" and project == "wpiHal":
             pkg_file = "hal/pkgcfg.py".format(project = project)
         generated_files.append("on_build_dl/" + pkg_file)
         filter_srcs(
