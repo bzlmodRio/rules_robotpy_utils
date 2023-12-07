@@ -16,9 +16,6 @@ def create_pybind_library(
     rpy_hdr_deps = []
     rpy_include_dir = rpy_include_dir or "generated/rpy-include/{}/rpy-include".format(name)
     rpy_includes = native.glob([rpy_include_dir + "/rpygen/*.hpp".format(name)])
-    print(name)
-    print(rpy_include_dir)
-    print(rpy_includes)
     if rpy_includes:
         cc_library(
             name = "{}_rpy_includes".format(name),

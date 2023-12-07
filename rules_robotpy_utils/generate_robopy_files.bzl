@@ -31,7 +31,6 @@ def __run_on_dl(
         config_file,
         python_deps,
         projects):
-    print(python_deps)
     py_binary(
         name = name + ".pybind_on_build_dl_exe",
         main = "pybind_on_build_dl_shim.py",
@@ -103,8 +102,6 @@ def __run_on_dl(
     )
 
 def _filter_srcs_impl(ctx):
-    print(ctx.files.srcs)
-    print(ctx.attr.filter)
     return DefaultInfo(files = depset([f for f in ctx.files.srcs if f.path.endswith(ctx.attr.filter)]))
 
 filter_srcs = rule(
