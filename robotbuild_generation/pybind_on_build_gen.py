@@ -16,12 +16,13 @@ def main(argv):
     parser.add_argument("--output_directory", required=True)
     parser.add_argument("--project_name", required=True)
     parser.add_argument("--keep_json_files", action="store_true")
+    parser.add_argument("--internal_project_dependencies", nargs="+")
     args = parser.parse_args()
     args.keep_json_files = True
 
     intermediate_directory = args.output_directory + ".intermediate"
 
-    setup = Setup(args.config, intermediate_directory)
+    setup = Setup(args.config, intermediate_directory, args.internal_project_dependencies)
 
     for wrapper in setup.wrappers:
         wrapper.on_build_gen(os.path.join(intermediate_directory, "pybind_gen"))

@@ -11,6 +11,7 @@ def main(argv):
     parser = argparse.ArgumentParser()
     parser.add_argument("--config", required=True)
     parser.add_argument("--output_files", nargs="+", required=True)
+    parser.add_argument("--internal_project_dependencies", nargs="+")
     args = parser.parse_args(argv)
 
     # print(args.output_files)
@@ -22,7 +23,7 @@ def main(argv):
     # print(args.output_files[0])
     # print(output_directory)
 
-    setup = Setup(args.config, output_directory)
+    setup = Setup(args.config, output_directory, args.internal_project_dependencies)
 
     # for dependency in dependencies:
 

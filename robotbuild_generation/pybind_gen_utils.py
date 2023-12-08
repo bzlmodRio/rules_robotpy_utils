@@ -12,10 +12,12 @@ from rules_robotpy_utils.robotbuild_generation.load_project_config import (
 import os
 import tomli
 import importlib
+from typing import List
 
 
 class Setup:
-    def __init__(self, config_path: str, output_directory: str):
+    def __init__(self, config_path: str, output_directory: str, fake_entry_point_projects : List[str]):
+        fake_entry_point_projects = fake_entry_point_projects or []
         self.root = output_directory
         self.output_directory = "/home/pjreiniger/git/allwpilib"
         self.wrappers = []
@@ -70,41 +72,38 @@ class Setup:
         self.wwriter = WrapperWriter()
 
         self.prepare(output_directory)
+        
+        self.load_fake_eps(fake_entry_point_projects)
 
-        unique_deps = set()
-        for wrapper in self.wrappers:
-            for dep in wrapper.cfg.depends:
-                self.__load_dep(dep, unique_deps)
 
-    def __load_dep(self, dep, unique_deps):
-        if dep in unique_deps:
-            # print(f"Skipping {dep}")
-            return
-        unique_deps.add(dep)
+    def load_fake_eps(self, fake_entry_point_projects: str):
 
-        print("Trying to load dep ", dep)
-        if dep == "wpimath_cpp":
-            dep = "wpimath._impl"
-        elif dep == "wpimath_controls":
-            dep = "wpimath._controls"
-        elif "wpimath_" in dep:
-            dep = ".".join(dep.split("_"))
-        elif dep == "wpiHal":
-            dep = "hal"
+        def __load(key, value):
+            entry_point = pkg_resources.EntryPoint.parse(f'{key} = {value}.pkgcfg', dist=distribution)
+            pkg_resources.working_set.add(distribution)
+            self.pkgcfg.add_pkg(PkgCfg(entry_point))
+        import pkg_resources
 
-        try:
-            mod = importlib.import_module(dep + ".pkgcfg")
-            self.pkgcfg.add_pkg(PkgCfg(mod))
+        distribution = pkg_resources.Distribution()
 
-            module_deps = getattr(mod, "depends", [])
-            for d in module_deps:
-                self.__load_dep(d, unique_deps)
-        except ModuleNotFoundError as e:
-            print(
-                f"  Could not load {dep}, might be ok if it is an internal package {e}, {type(e)}"
-            )
+        for project in fake_entry_point_projects:
+            if project == "wpimath":
+                __load("wpimath", "wpimath")
+                __load("wpimath_controls", "wpimath._controls")
+                __load("wpimath_cpp", "wpimath._impl")
+                __load("wpimath_filter", "wpimath.filter")
+                __load("wpimath_geometry", "wpimath.geometry")
+                __load("wpimath_interpolation", "wpimath.interpolation")
+                __load("wpimath_kinematics", "wpimath.kinematics")
+                __load("wpimath_spline", "wpimath.spline")
+            elif project == "hal":
+                __load("hal_simulation", "hal.simulation")
+                __load("wpiHal", "hal")
+            else:
+                __load(project, project)
 
     def prepare(self, output_directory):
+
         self.pkgcfg = PkgCfgProvider()
 
         self.pypi_package = self.project.metadata.name
@@ -131,7 +130,7 @@ class Setup:
             if cfg.generation_data:
                 # print("Has gen data", cfg.generation_data)
                 cfg.generation_data = (
-                    f"{package_name}/src/main/python/" + cfg.generation_data
+                    f"{self.project.base_package}/src/main/python/" + cfg.generation_data
                 )
 
             # print(package_name, cfg)
