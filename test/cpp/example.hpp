@@ -14,4 +14,5 @@ public:
 
   void print_something(const std::string &txt);
 };
+
 } // namespace my_example

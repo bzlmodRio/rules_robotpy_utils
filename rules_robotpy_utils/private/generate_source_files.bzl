@@ -26,8 +26,6 @@ def generate_source_files(
         srcs = native.glob(["gen/**"])
     )
 
-    print(headers)
-
     __generate_on_build_gen_files(
         name = "generate_on_build_gen",
         tool = name + ".generate_pybind_exe",

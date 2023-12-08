@@ -11,9 +11,6 @@ def load_project_config(config_file):
 
     project_dict = pyproject.get("tool", {}).get("robotpy-build", {})
 
-    # override_keys = get_platform_override_keys(self.platform)
-    # apply_overrides(self.project_dict, override_keys)
-
     project = RobotpyBuildConfig(**project_dict)
 
     return project

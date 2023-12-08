@@ -6,3 +6,9 @@ cc_library(
     hdrs = ["example.hpp"],
     visibility = ["//visibility:public"],
 )
+
+filegroup(
+    name = "headers",
+    srcs = glob(["*.hpp"]),
+    visibility = ["//visibility:public"],
+)

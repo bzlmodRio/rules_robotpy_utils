@@ -5,7 +5,7 @@ create_pybind_library(
     "example",
     entry_point = ["example/main.cpp"],
     deps = [
-        "//test/cpp:example",
+        "//cpp:example",
     ],
 )
 
@@ -13,5 +13,5 @@ generate_robopy_files(
     name = "example",
     config_file = ":pyproject.toml",
     disable = True,
-    headers = [],
+    headers = ["//cpp:headers"],
 )

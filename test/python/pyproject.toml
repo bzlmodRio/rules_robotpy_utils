@@ -34,4 +34,4 @@ libs = ["example"]
 
 [tool.robotpy-build.wrappers."example".autogen_headers]
 # wpi
-Example = "example.hh"
+Example = "cpp/example.hpp"
