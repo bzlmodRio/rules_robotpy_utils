@@ -8,6 +8,7 @@ from robotpy_build.wrapper import Wrapper
 import os
 import re
 import shutil
+import logging
 
 
 def main(argv):
@@ -27,11 +28,7 @@ def main(argv):
     for wrapper in setup.wrappers:
         wrapper.on_build_gen(os.path.join(intermediate_directory, "pybind_gen"))
 
-    # print("Done gen\n\n\n")
-
     project_name = args.project_name
-    # print("COPYING FROM", os.path.join(intermediate_directory, f"{project_name}/rpy-include"))
-    # raise
 
     shutil.copytree(
         os.path.join(intermediate_directory, "pybind_gen"),
@@ -47,14 +44,13 @@ def main(argv):
         rpy_include_output_dir,
     )
 
-    print("Copying CPP files to src directory")
+    logging.info("Copying CPP files to src directory")
     for root, _, files in os.walk(rpy_include_output_dir):
         for f in files:
             if f.endswith(".cpp"):
                 re_pattern = f"rpy-include/{project_name}(/.*)/rpy-include"
                 xxxx = re.search(re_pattern, root)
-                print(root, f)
-                # print(re_pattern, "->", xxxx)
+                logging.info(root, f)
                 if xxxx:
                     subfolder = xxxx[1]
                     actual_directory = os.path.join(
@@ -77,8 +73,8 @@ def main(argv):
 
                     if not os.path.exists(actual_directory):
                         os.makedirs(actual_directory)
-                    print("Got a match...", subfolder)
-                    print("  Putting in ", actual_directory)
+                    logging.info("Got a match...", subfolder)
+                    logging.info("  Putting in ", actual_directory)
                     shutil.move(os.path.join(root, f), actual_directory)
                 elif project_name == "wpilib":
                     shutil.move(
@@ -88,7 +84,7 @@ def main(argv):
                         ),
                     )
                 else:
-                    print("  No regex, doing normal copy")
+                    logging.info("  No regex, doing normal copy")
 
                     shutil.move(
                         os.path.join(root, f),

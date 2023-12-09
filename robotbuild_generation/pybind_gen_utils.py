@@ -19,7 +19,6 @@ class Setup:
     def __init__(self, config_path: str, output_directory: str, fake_entry_point_projects : List[str]):
         fake_entry_point_projects = fake_entry_point_projects or []
         self.root = output_directory
-        self.output_directory = "/home/pjreiniger/git/allwpilib"
         self.wrappers = []
         self.static_libs = []
 
