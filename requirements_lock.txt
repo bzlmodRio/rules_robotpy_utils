@@ -173,9 +173,9 @@ pyyaml==6.0.1 \
     --hash=sha256:fd1592b3fdf65fff2ad0004b5e363300ef59ced41c2e6b3a99d4089fa8c5435d \
     --hash=sha256:fd66fc5d0da6d9815ba2cebeb4205f95818ff4b79c3ebe268e75d961704af52f
     # via robotpy-build
-robotpy-build==2024.0.0b5 \
-    --hash=sha256:1a0f7355ffd41839bd7fedb8c04b714b0d839562b0339c911e406d72143cb979 \
-    --hash=sha256:615274386912c583dface7a5b543a731812982e277414b0bb725c8af6bd4b89f
+# WARNING: pip install will require the following package to be hashed.
+# Consider using a hashable URL like https://github.com/jazzband/pip-tools/archive/SOMECOMMIT.zip
+robotpy-build @ git+https://github.com/pjreiniger/robotpy-build@2023.12.9.0-r0
     # via -r ./requirements.txt
 setuptools==69.0.2 \
     --hash=sha256:1e8fdff6797d3865f37397be788a4e3cba233608e9b509382a2777d25ebde7f2 \
