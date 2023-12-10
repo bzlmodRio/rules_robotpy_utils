@@ -7,6 +7,7 @@ def generate_project_files(
         config_file,
         python_deps,
         projects,
+        headers,
         internal_project_dependencies):
     py_binary(
         name = name + ".pybind_on_build_dl_exe",
@@ -59,6 +60,7 @@ def generate_project_files(
         name = "pkgcfg",
         srcs = pkgcfg_files,
         visibility = ["//visibility:public"],
+        data = headers,
         imports = ["."],
     )
 

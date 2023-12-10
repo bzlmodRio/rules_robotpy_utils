@@ -48,6 +48,7 @@ def generate_robopy_files(
         config_file = config_file,
         projects = projects,
         python_deps = python_deps,
+        headers = headers,
         internal_project_dependencies = internal_project_dependencies,
     )
 
