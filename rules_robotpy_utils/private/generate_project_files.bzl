@@ -1,6 +1,5 @@
-load("@rules_python//python:defs.bzl", "py_binary", "py_library")
 load("@aspect_bazel_lib//lib:write_source_files.bzl", "write_source_files")
-
+load("@rules_python//python:defs.bzl", "py_binary", "py_library")
 
 def generate_project_files(
         name,
@@ -71,7 +70,6 @@ def generate_project_files(
         visibility = ["//visibility:public"],
     )
 
-
     cmd = "$(locations " + name + ".pybind_on_build_dl_exe" + ") --config=$(location " + config_file + ") --output_files $(OUTS)"
     if internal_project_dependencies:
         cmd += " --internal_project_dependencies " + " ".join(internal_project_dependencies)
@@ -85,7 +83,6 @@ def generate_project_files(
         visibility = ["//wpimath:__subpackages__"],
     )
 
-
 def _filter_srcs_impl(ctx):
     return DefaultInfo(files = depset([f for f in ctx.files.srcs if f.path.endswith(ctx.attr.filter)]))
 
@@ -96,7 +93,6 @@ filter_srcs = rule(
         "srcs": attr.label(allow_files = True, mandatory = True),
     },
 )
-
 
 def __generate_on_build_dl_files_impl(ctx):
     output_dir = ctx.actions.declare_directory(ctx.attr.gen_dir)

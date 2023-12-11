@@ -10,7 +10,6 @@ bazel_dep(name = "rules_python", version = "0.21.0")
 bazel_dep(name = "pybind11_bazel", version = "2.11.1")
 bazel_dep(name = "rules_bzlmodrio_toolchains", version = "2024-1")
 
-
 python_configure = use_extension("@pybind11_bazel//:python_configure.bzl", "extension")
 python_configure.toolchain(python_version = "3")
 use_repo(python_configure, "local_config_python", "pybind11")

@@ -1,9 +1,8 @@
-
 load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 
 local_repository(
     name = "rules_robotpy_utils",
-    path = ".."
+    path = "..",
 )
 
 load("@rules_robotpy_utils//:download_dependencies.bzl", "download_rules_robotpy_utils_dependencies")

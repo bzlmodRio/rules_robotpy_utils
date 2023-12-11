@@ -1,7 +1,5 @@
-load("@aspect_bazel_lib//lib:write_source_files.bzl", "write_source_files")
-load("@rules_python//python:defs.bzl", "py_binary", "py_library")
-load("@rules_robotpy_utils//rules_robotpy_utils/private:generate_source_files.bzl", "generate_source_files")
 load("@rules_robotpy_utils//rules_robotpy_utils/private:generate_project_files.bzl", "generate_project_files")
+load("@rules_robotpy_utils//rules_robotpy_utils/private:generate_source_files.bzl", "generate_source_files")
 
 def generate_robopy_files(
         name,
@@ -10,10 +8,8 @@ def generate_robopy_files(
         projects = None,
         headers = [],
         disable = False):
-    
     if disable:
         return
-        
 
     ###############################
     print(name)
@@ -40,6 +36,7 @@ def generate_robopy_files(
         internal_project_dependencies.append("wpimath")
         internal_project_dependencies.append("wpinet")
         internal_project_dependencies.append("ntcore")
+
     ###############################
 
     projects = [name] if projects == None else projects

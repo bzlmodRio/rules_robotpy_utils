@@ -1,7 +1,5 @@
-
-load("@rules_python//python:defs.bzl", "py_binary", "py_library")
 load("@aspect_bazel_lib//lib:write_source_files.bzl", "write_source_files")
-
+load("@rules_python//python:defs.bzl", "py_binary")
 
 def generate_source_files(
         name,
@@ -9,7 +7,6 @@ def generate_source_files(
         python_deps,
         headers,
         internal_project_dependencies):
-
     print(native.glob(["gen/**"]))
     py_binary(
         name = name + ".generate_pybind_exe",
@@ -23,7 +20,7 @@ def generate_source_files(
 
     native.filegroup(
         name = "gen_files",
-        srcs = native.glob(["gen/**"])
+        srcs = native.glob(["gen/**"]),
     )
 
     __generate_on_build_gen_files(
@@ -32,7 +29,7 @@ def generate_source_files(
         config_file = config_file,
         gen_dir = "_gen_on_build",
         headers = headers,
-        gen_files =  "gen_files",
+        gen_files = "gen_files",
         project_name = name,
         internal_project_dependencies = internal_project_dependencies,
     )
@@ -46,7 +43,6 @@ def generate_source_files(
         visibility = ["//visibility:public"],
         diff_test = True,
     )
-
 
 def __generate_on_build_gen_files_impl(ctx):
     output_dir = ctx.actions.declare_directory(ctx.attr.gen_dir)
