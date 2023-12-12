@@ -1,0 +1,10 @@
+load("@rules_robotpy_utils//rules_robotpy_utils:pybind_rules.bzl", "create_pybind_library")
+
+create_pybind_library(
+    "example",
+    generation_helper_prefix = "//python:example",
+    entry_point = ["main.cpp"],
+    deps = [
+        "//cpp:example",
+    ],
+)
