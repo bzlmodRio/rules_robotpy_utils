@@ -1,13 +1,17 @@
 load("@aspect_bazel_lib//lib:write_source_files.bzl", "write_source_files")
 load("@rules_python//python:defs.bzl", "py_binary")
 
-def generate_source_files(
+def generate_robotpy_source_files(
         name,
         config_file,
-        python_deps,
-        headers,
-        internal_project_dependencies):
-    print(native.glob(["gen/**"]))
+        python_deps = [],
+        projects = None,
+        headers = [],
+        internal_project_dependencies = [],
+        disable = False):
+    if disable:
+        return
+
     py_binary(
         name = name + ".generate_pybind_exe",
         main = "pybind_on_build_gen_shim.py",
@@ -55,10 +59,6 @@ def __generate_on_build_gen_files_impl(ctx):
         args.add("--internal_project_dependencies")
         for dep in ctx.attr.internal_project_dependencies:
             args.add(dep)
-
-    print("****************************")
-    print(ctx.files.headers)
-    print("****************************")
 
     ctx.actions.run(
         inputs = ctx.files.config_file + ctx.files.gen_files + ctx.files.headers,

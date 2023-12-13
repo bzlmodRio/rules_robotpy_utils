@@ -8,14 +8,18 @@ import importlib
 
 
 def main(argv):
+    logging.getLogger().setLevel(logging.DEBUG)
     # print("BUILD DL")
     parser = argparse.ArgumentParser()
     parser.add_argument("--config", required=True)
+    parser.add_argument("--parent_folder")
     parser.add_argument("--output_files", nargs="+", required=True)
     parser.add_argument("--internal_project_dependencies", nargs="+")
     args = parser.parse_args(argv)
 
     output_directory = os.path.dirname(args.output_files[0]) + "/.."
+    if args.parent_folder:
+        output_directory = output_directory + "/.."
 
     setup = Setup(args.config, output_directory, args.internal_project_dependencies)
 
