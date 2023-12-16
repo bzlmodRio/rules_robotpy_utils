@@ -33,7 +33,11 @@ def generate_robotpy_project_files(
     file_mapping = {}
     generated_files = []
 
-    init_file = init_file or "_init_{}.py".format(name)
+    init_file_name = name
+    if init_file_name.startswith("_"):
+        init_file_name = init_file_name[1:]
+
+    init_file = init_file or "_init_{}.py".format(init_file_name)
     file_mapping[init_file] = "__filtered_gen_{}_init".format(name)
     generated_files.append("on_build_dl/{}{}/".format(parent_folder, name) + init_file)
     filter_srcs(
