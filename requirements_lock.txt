@@ -175,7 +175,7 @@ pyyaml==6.0.1 \
     # via robotpy-build
 # WARNING: pip install will require the following package to be hashed.
 # Consider using a hashable URL like https://github.com/jazzband/pip-tools/archive/SOMECOMMIT.zip
-robotpy-build @ git+https://github.com/pjreiniger/robotpy-build@2023.12.9.0-r1
+robotpy-build @ git+https://github.com/pjreiniger/robotpy-build@2023.12.16-rc1
     # via -r ./requirements.txt
 setuptools==69.0.2 \
     --hash=sha256:1e8fdff6797d3865f37397be788a4e3cba233608e9b509382a2777d25ebde7f2 \
