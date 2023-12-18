@@ -1,5 +1,6 @@
 load("@pybind11_bazel//:build_defs.bzl", "pybind_extension", "pybind_library")
 load("@rules_cc//cc:defs.bzl", "cc_library")
+load("@aspect_bazel_lib//lib:copy_file.bzl", "copy_file")
 
 def create_pybind_library(
         name,
@@ -50,7 +51,7 @@ def create_pybind_library(
         srcs = entry_point,
         deps = gensrc_headers + [":{}_pybind_library".format(name)],
         defines = ["RPYBUILD_MODULE_NAME=_{}".format(name)],
-        visibility = extension_visibility,
+        visibility = ["//visibility:private"],
         target_compatible_with = select({
             "@rules_bzlmodrio_toolchains//constraints/is_bullseye32:bullseye32": ["@platforms//:incompatible"],
             "@rules_bzlmodrio_toolchains//constraints/is_bullseye64:bullseye64": ["@platforms//:incompatible"],
@@ -63,6 +64,22 @@ def create_pybind_library(
             "no-raspi",
             "no-roborio",
         ],
+    )
+    
+    copy_file(
+        name = name + ".win_pyd",
+        src = "_" + name + ".so",
+        out = "_" + name + ".pyd",
+        visibility = ["//visibility:public"],
+        tags = ["manual"],
+    )
+
+    native.alias(
+        name = name + ".pyso",
+        actual = select({
+            "@rules_bazelrio//conditions:windows": name + ".win_pyd",
+        }),
+        visibility = extension_visibility,
     )
 
 def generated_files_helper(
