@@ -11,6 +11,7 @@ def create_pybind_library(
         extra_hdrs = [],
         deps = [],
         entry_point = [],
+        local_defines = [],
         extension_visibility = None):
     rpy_include_libs = [generation_helper_prefix + "_rpy_includes"]
     generated_srcs = [generation_helper_prefix + "_generated_sources"]
@@ -34,7 +35,7 @@ def create_pybind_library(
             "@rules_bzlmodrio_toolchains//constraints/is_roborio:roborio": ["@platforms//:incompatible"],
             "//conditions:default": [],
         }),
-        local_defines = ["RPYBUILD_MODULE_NAME=_{}".format(name), "PYBIND11_DETAILED_ERROR_MESSAGES=1"],
+        local_defines = local_defines + ["RPYBUILD_MODULE_NAME=_{}".format(name), "PYBIND11_DETAILED_ERROR_MESSAGES=1"],
         defines = ["PYBIND11_USE_SMART_HOLDER_AS_DEFAULT=1"],
         strip_include_prefix = strip_include_prefix,
         includes = includes,
@@ -78,6 +79,7 @@ def create_pybind_library(
         name = name + ".pyso",
         actual = select({
             "@rules_bazelrio//conditions:windows": name + ".win_pyd",
+            "//conditions:default": "_{}.so".format(name),
         }),
         visibility = extension_visibility,
     )

@@ -7,12 +7,10 @@ def generate_robotpy_project_files(
         python_deps = [],
         headers = [],
         internal_project_dependencies = [],
-        disable = False,
+        disable_gen_test = False,
         visibility = None,
         init_file = None,
         parent_folder = ""):
-    if disable:
-        return
 
     py_binary(
         name = name + ".pybind_on_build_dl_exe",
@@ -69,6 +67,7 @@ def generate_robotpy_project_files(
         files = file_mapping,
         suggested_update_target = "//:write_on_build_dl_files",
         visibility = ["//visibility:public"],
+        diff_test = not disable_gen_test
     )
 
     native.filegroup(

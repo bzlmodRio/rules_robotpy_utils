@@ -39,10 +39,16 @@ def main(argv):
         args.output_directory, f"rpy-include/{project_name}"
     )
 
-    shutil.copytree(
-        os.path.join(intermediate_directory, f"{project_name}"),
-        rpy_include_output_dir,
-    )
+    if "apriltag" in project_name:
+        shutil.copytree(
+            os.path.join(intermediate_directory, f"robotpy_apriltag"),
+            rpy_include_output_dir,
+        )
+    else:
+        shutil.copytree(
+            os.path.join(intermediate_directory, f"{project_name}"),
+            rpy_include_output_dir,
+        )
 
     logging.info("Copying CPP files to src directory")
     for root, _, files in os.walk(rpy_include_output_dir):

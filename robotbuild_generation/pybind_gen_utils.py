@@ -128,12 +128,17 @@ class Setup:
 
             if cfg.generation_data:
                 # print("Has gen data", cfg.generation_data)
-                cfg.generation_data = (
-                    f"{self.project.base_package}/src/main/python/" + cfg.generation_data
-                )
+                if self.project.base_package == "robotpy_apriltag":
+                    cfg.generation_data = (
+                        f"apriltag/src/main/python/" + cfg.generation_data
+                    )
+                else:
+                    cfg.generation_data = (
+                        f"{self.project.base_package}/src/main/python/" + cfg.generation_data
+                    )
 
             # print(package_name, cfg)
-            # self._fix_downloads(cfg, False)
+            self._fix_downloads(cfg, False)
             w = Wrapper(package_name, cfg, self, self.wwriter)
             self.wrappers.append(w)
             self.pkgcfg.add_pkg(w)
@@ -143,3 +148,13 @@ class Setup:
 
         if ext_modules:
             self.setup_kwargs["ext_modules"] = ext_modules
+
+    def _fix_downloads(self, cfg, static: bool):
+        print(cfg)
+        if cfg.maven_lib_download:
+            downloads = [Download(url="FAKE", incdir="FAKE INCLUDE", libdir = "FAKE LIB", libs=cfg.maven_lib_download.libs)]
+            cfg.maven_lib_download = None
+            if cfg.download:
+                cfg.download.append(downloads)
+            else:
+                cfg.download = downloads

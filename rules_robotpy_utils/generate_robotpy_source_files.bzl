@@ -8,9 +8,12 @@ def generate_robotpy_source_files(
         projects = None,
         headers = [],
         internal_project_dependencies = [],
-        disable = False):
+        disable = False,
+        project_name = None):
     if disable:
         return
+
+    project_name = project_name or name
 
     py_binary(
         name = name + ".generate_pybind_exe",
@@ -34,7 +37,7 @@ def generate_robotpy_source_files(
         gen_dir = "_gen_on_build",
         headers = headers,
         gen_files = "gen_files",
-        project_name = name,
+        project_name = project_name,
         internal_project_dependencies = internal_project_dependencies,
     )
 
