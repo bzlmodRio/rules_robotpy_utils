@@ -8,9 +8,9 @@ cxxheaderparser[pcpp]==1.2.2 \
     --hash=sha256:89fcc7ed0de5e641296357dde6641e33a79d4c602331a90efa99f544baa6b9b5 \
     --hash=sha256:cc1395783919c85f14013e3f0c87ef04b0e0a697454e98db12f92b3ba9eb4f61
     # via robotpy-build
-delocate==0.10.6 \
-    --hash=sha256:28f302505e3811754a398274bbf3bc5b4f7d3384cf96aa57f6be119cadddeabd \
-    --hash=sha256:697d4fcd77014f1462ffab4807364193ee2e9cfad5553bb75922b8a173d94e61
+delocate==0.10.7 \
+    --hash=sha256:8251df9a9c9b57ef077a50bf1300f199845a6f7123ada59343d0150c41fa9da6 \
+    --hash=sha256:fbf650d3cb45db7c02ec8c3c3ae546310415f845594871623f7561c96f140f0b
     # via robotpy-build
 jinja2==3.0.0a1 \
     --hash=sha256:c10142f819c2d22bdcd17548c46fa9b77cf4fda45097854c689666bf425e7484 \
@@ -177,7 +177,7 @@ pyyaml==6.0.1 \
     # via robotpy-build
 # WARNING: pip install will require the following package to be hashed.
 # Consider using a hashable URL like https://github.com/jazzband/pip-tools/archive/SOMECOMMIT.zip
-robotpy-build @ git+https://github.com/pjreiniger/robotpy-build@2023.12.16-rc1
+robotpy-build @ git+https://github.com/pjreiniger/robotpy-build@2023.12.13-rc1
     # via -r ./requirements.txt
 setuptools==69.0.2 \
     --hash=sha256:1e8fdff6797d3865f37397be788a4e3cba233608e9b509382a2777d25ebde7f2 \
