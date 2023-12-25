@@ -1,5 +1,5 @@
 load("@aspect_bazel_lib//lib:write_source_files.bzl", "write_source_files")
-load("@rules_python//python:defs.bzl", "py_binary", "py_library")
+load("@rules_python//python:defs.bzl", "py_binary")
 
 def generate_robotpy_project_files(
         name,
@@ -11,7 +11,6 @@ def generate_robotpy_project_files(
         visibility = None,
         init_file = None,
         parent_folder = ""):
-
     py_binary(
         name = name + ".pybind_on_build_dl_exe",
         main = "pybind_on_build_dl_shim.py",
@@ -67,7 +66,7 @@ def generate_robotpy_project_files(
         files = file_mapping,
         suggested_update_target = "//:write_on_build_dl_files",
         visibility = ["//visibility:public"],
-        diff_test = not disable_gen_test
+        diff_test = not disable_gen_test,
     )
 
     native.filegroup(
@@ -123,4 +122,3 @@ __generate_on_build_dl_files = rule(
         ),
     },
 )
-

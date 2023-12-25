@@ -132,6 +132,10 @@ class Setup:
                     cfg.generation_data = (
                         f"apriltag/src/main/python/" + cfg.generation_data
                     )
+                elif self.project.base_package == "wpimath_test":
+                    cfg.generation_data = (
+                        f"wpimath/src/test/python/cpp/" + cfg.generation_data
+                    )
                 else:
                     cfg.generation_data = (
                         f"{self.project.base_package}/src/main/python/" + cfg.generation_data

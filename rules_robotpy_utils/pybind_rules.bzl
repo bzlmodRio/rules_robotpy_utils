@@ -1,6 +1,6 @@
+load("@aspect_bazel_lib//lib:copy_file.bzl", "copy_file")
 load("@pybind11_bazel//:build_defs.bzl", "pybind_extension", "pybind_library")
 load("@rules_cc//cc:defs.bzl", "cc_library")
-load("@aspect_bazel_lib//lib:copy_file.bzl", "copy_file")
 
 def create_pybind_library(
         name,
@@ -12,10 +12,19 @@ def create_pybind_library(
         deps = [],
         entry_point = [],
         local_defines = [],
-        extension_visibility = None):
-    rpy_include_libs = [generation_helper_prefix + "_rpy_includes"]
-    generated_srcs = [generation_helper_prefix + "_generated_sources"]
-    gensrc_headers = [generation_helper_prefix + "_gensrc_headers"]
+        extension_visibility = None,
+        extension_name = None):
+    extension_name = extension_name or "_{}".format(name)
+
+    if generation_helper_prefix:
+        rpy_include_libs = [generation_helper_prefix + "_rpy_includes"]
+        generated_srcs = [generation_helper_prefix + "_generated_sources"]
+        gensrc_headers = [generation_helper_prefix + "_gensrc_headers"]
+    else:
+        rpy_include_libs = []
+        generated_srcs = []
+        gensrc_headers = []
+
     pybind_library(
         name = "{}_pybind_library".format(name),
         srcs = generated_srcs + extra_srcs,
@@ -48,10 +57,10 @@ def create_pybind_library(
     )
 
     pybind_extension(
-        name = "_{}".format(name),
+        name = extension_name,
         srcs = entry_point,
         deps = gensrc_headers + [":{}_pybind_library".format(name)],
-        defines = ["RPYBUILD_MODULE_NAME=_{}".format(name)],
+        defines = ["RPYBUILD_MODULE_NAME={}".format(extension_name)],
         visibility = ["//visibility:private"],
         target_compatible_with = select({
             "@rules_bzlmodrio_toolchains//constraints/is_bullseye32:bullseye32": ["@platforms//:incompatible"],
@@ -66,11 +75,11 @@ def create_pybind_library(
             "no-roborio",
         ],
     )
-    
+
     copy_file(
         name = name + ".win_pyd",
-        src = "_" + name + ".so",
-        out = "_" + name + ".pyd",
+        src = extension_name + ".so",
+        out = extension_name + ".pyd",
         visibility = ["//visibility:public"],
         tags = ["manual"],
     )
@@ -79,7 +88,7 @@ def create_pybind_library(
         name = name + ".pyso",
         actual = select({
             "@rules_bazelrio//conditions:windows": name + ".win_pyd",
-            "//conditions:default": "_{}.so".format(name),
+            "//conditions:default": "{}.so".format(extension_name),
         }),
         visibility = extension_visibility,
     )
