@@ -76,20 +76,10 @@ def create_pybind_library(
         ],
     )
 
-    # copy_file(
-    #     name = name + ".win_pyd",
-    #     src = extension_name + ".so",
-    #     out = extension_name + ".pyd",
-    #     visibility = ["//visibility:public"],
-    #     tags = ["manual"],
-    # )
-
+    # TODO this is now redundant
     native.alias(
         name = name + ".pyso",
-        actual = select({
-            "@rules_bazelrio//conditions:windows": name + ".win_pyd",
-            "//conditions:default": "{}.so".format(extension_name),
-        }),
+        actual = extension_name,
         visibility = extension_visibility,
     )
 
