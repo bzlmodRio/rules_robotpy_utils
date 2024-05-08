@@ -8,7 +8,7 @@ import importlib
 
 
 def main(argv):
-    logging.getLogger().setLevel(logging.DEBUG)
+    # logging.getLogger().setLevel(logging.DEBUG)
     # print("BUILD DL")
     parser = argparse.ArgumentParser()
     parser.add_argument("--config", required=True)
