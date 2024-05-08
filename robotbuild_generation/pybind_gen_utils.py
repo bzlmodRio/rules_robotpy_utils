@@ -154,7 +154,6 @@ class Setup:
             self.setup_kwargs["ext_modules"] = ext_modules
 
     def _fix_downloads(self, cfg, static: bool):
-        print(cfg)
         if cfg.maven_lib_download:
             downloads = [Download(url="FAKE", incdir="FAKE INCLUDE", libdir = "FAKE LIB", libs=cfg.maven_lib_download.libs)]
             cfg.maven_lib_download = None
