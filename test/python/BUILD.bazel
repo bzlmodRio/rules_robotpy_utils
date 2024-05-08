@@ -1,14 +1,21 @@
-load("@rules_robotpy_utils//rules_robotpy_utils:generate_robopy_files.bzl", "generate_robopy_files")
+
 load("@rules_robotpy_utils//rules_robotpy_utils:pybind_rules.bzl", "generated_files_helper")
+load("@rules_robotpy_utils//rules_robotpy_utils:generate_robotpy_source_files.bzl", "generate_robotpy_source_files")
 
 generated_files_helper(
     name = "example",
     visibility = ["//visibility:public"],
 )
 
-generate_robopy_files(
+filegroup(
+    name = "config_file",
+    srcs = ["pyproject.toml"],
+    visibility = ["//python:__subpackages__"],
+)
+
+generate_robotpy_source_files(
     name = "example",
-    config_file = ":pyproject.toml",
+    config_file = ":config_file",
     disable = True,
     headers = ["//cpp:headers"],
 )

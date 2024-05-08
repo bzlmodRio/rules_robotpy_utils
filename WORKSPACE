@@ -21,23 +21,6 @@ load("@aspect_bazel_lib//lib:repositories.bzl", "aspect_bazel_lib_dependencies")
 
 aspect_bazel_lib_dependencies()
 
-# We still require the pybind library.
-
-load("@pybind11_bazel//:python_configure.bzl", "python_configure")
-
-python_register_toolchains(
-    name = "python3_10",
-    ignore_root_user_error = True,
-    python_version = "3.10.6",
-)
-
-load("@python3_10//:defs.bzl", "interpreter")
-
-python_configure(
-    name = "local_config_python",
-    python_interpreter_target = interpreter,
-)
-
 http_archive(
     name = "bzlmodRio",
     sha256 = "ebcf55589f36f2297450b887f1194eb66f96563d3d40d5b7e99b2fa0bea2fd5a",
@@ -65,4 +48,10 @@ download_dependencies(
     rules_toolchains_version = "2024-1",
     rules_wpi_styleguide_version = None,
     rules_wpiformat_version = None,
+)
+
+python_register_toolchains(
+    name = "python_3_11",
+    ignore_root_user_error = True,
+    python_version = "3.11",
 )

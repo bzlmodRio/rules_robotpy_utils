@@ -76,13 +76,13 @@ def create_pybind_library(
         ],
     )
 
-    copy_file(
-        name = name + ".win_pyd",
-        src = extension_name + ".so",
-        out = extension_name + ".pyd",
-        visibility = ["//visibility:public"],
-        tags = ["manual"],
-    )
+    # copy_file(
+    #     name = name + ".win_pyd",
+    #     src = extension_name + ".so",
+    #     out = extension_name + ".pyd",
+    #     visibility = ["//visibility:public"],
+    #     tags = ["manual"],
+    # )
 
     native.alias(
         name = name + ".pyso",
