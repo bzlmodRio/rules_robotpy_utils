@@ -423,7 +423,7 @@
         "ruleClassName": "http_archive",
         "attributes": {
           "urls": [
-            "https://github.com/bzlmodRio/rules_bzlmodrio_toolchains/releases/download/2024-1/rules_bzlmodrio_toolchains-2024-1.tar.gz"
+            "https://github.com/wpilibsuite/rules_bzlmodRio_toolchains/releases/download/2024-1/rules_bzlmodRio_toolchains-2024-1.tar.gz"
           ],
           "integrity": "sha256-zT/wRkJ+nG28DIakWMjPCBuARfw/tCZdCMDr/Bf5yzA=",
           "strip_prefix": "",
