@@ -40,7 +40,7 @@ download_dependencies(
     imgui_version = None,
     libssh_version = None,
     local_monorepo_base = "../bzlmodRio/monorepo",
-    navx_version = None,
+    studica_version = None,
     ni_version = None,
     opencv_version = None,
     phoenix_version = None,
